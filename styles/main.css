@@ -1,0 +1,605 @@
+body {
+  font-family: "Dosis", sans-serif;
+  background-color: #f7f4e8;
+}
+
+header {
+  background-color: #F7F4E8; /* Color de fondo */
+  padding: 10px 20px; /* Espaciado alrededor del contenido */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Separa el título y la sección de usuario */
+}
+
+h1 {
+  color: #0B0B0D; /* Color del texto del título */
+  margin: 0;
+}
+
+.usuario-logout {
+  display: flex;
+  align-items: center;
+}
+
+.nombre-usuario {
+  color: #6BB39B; /* Color del nombre del usuario */
+  margin-right: 20px; /* Espaciado entre el nombre y el botón */
+  display: flex;
+  align-items: center;
+}
+
+.nombre-usuario i {
+  margin-right: 5px; /* Espaciado entre el ícono de usuario y el nombre */
+}
+
+.boton-salir {
+  background-color: #6BB39B; /* Color del fondo del botón */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.boton-salir i {
+  margin-right: 5px; /* Espaciado entre el ícono y el texto del botón */
+}
+
+.boton-salir:hover {
+  background-color: #85E6C0; /* Color al pasar el ratón */
+}
+
+
+.login-design {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  height: 100vh;
+}
+
+.waves {
+  background-image: url("../assets/wave.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.centrar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-data {
+  text-align: center;
+  width: 60%;
+}
+
+.login-data h1 {
+  font-weight: 200;
+}
+
+.input-group {
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+}
+
+.input-fill input {
+  border: none;
+  border-bottom: 3px solid #848f9a;
+  width: 100%;
+  height: 2rem;
+  font-size: 1.0625rem;
+  padding-left: 2rem;
+  line-height: 147.6%;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.input-fill input:focus {
+  outline: none;
+  border-color: #60a08a;
+}
+
+.input-fill input:hover {
+  background-color: #e9ecef;
+}
+
+.input-fill input:focus + .input-label {
+  top: 0;
+  margin-bottom: 2rem;
+  color: #60a08a;
+}
+
+.input-fill input:focus ~ i {
+  color: #60a08a;
+}
+.input-fill .input-label.has-content {
+  top: 0;
+  margin-bottom: 2rem;
+  color: #60a08a;
+}
+
+.input-fill .input-label.has-content {
+  top: 0;
+  margin-bottom: 2rem;
+  color: #60a08a;
+}
+
+.input-fill .input-label {
+  position: absolute;
+  top: 15px;
+  left: 28px;
+  line-height: 147.6%;
+  color: #848f9a;
+  transition: top 0.2s;
+  font-weight: 700;
+}
+
+.input-fill i {
+  position: absolute;
+  top: 19px;
+  left: 0;
+  color: #848f9a;
+  font-size: 1.5rem;
+}
+
+.login-form a {
+  display: block;
+  width: 85%;
+  text-align: right;
+  text-decoration: none;
+  color: #848f9a;
+  margin-bottom: 1.3rem;
+  font-weight: 800;
+  transition: 0.3s ease-in-out all;
+  font-size: 18px;
+}
+
+.login-form a:hover {
+  color: #60a08a;
+}
+
+.btn-logins {
+  border-radius: 3rem;
+  width: 45%;
+  border: 1px solid #60a08a;
+  line-height: 1.6rem;
+  font-size: 1.3rem;
+  background-color: #60a08a;
+  color: #ffffff;
+  padding: 0.5rem 0;
+  transition: 0.3s ease-in-out all;
+  font-weight: 500;
+}
+
+.btn-logins:hover {
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #60a08a;
+}
+
+.card {
+  width: 300px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.card h2 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.card p {
+  font-size: 14px;
+  color: #777;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  color: white;
+  transition: background-color 0.3s;
+}
+.crear{
+  padding: 2em;
+}
+.crear>i:hover{
+  cursor: pointer;
+}
+.btn-edit {
+  background-color: #28a745;
+}
+
+.cartas {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+.carta {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  color: #0b0b0d;
+  margin: 10px;
+  padding: 20px;
+  text-align: center;
+  width: 300px; /* Ajusta según tus necesidades */
+}
+
+.carta h3 {
+  color: #070707;
+}
+
+.carta-body {
+  padding: 20px;
+}
+
+.enlace-grande {
+  background-color: #85e6c0;
+  border: none;
+  border-radius: 5px;
+  color: #f7f4e8;
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.enlace-grande:hover,
+.enlace-grande:focus {
+  background-color: #6bb39b;
+}
+
+button.enlace-grande {
+  width: 100%;
+  cursor: pointer;
+}
+
+.cartas-platos {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+.cartas-restaurantes{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+.plato {
+  width: 39%;
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: all 0.3s ease;
+  align-self: center;
+}
+.carta {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: all 0.3s ease;
+  align-self: center;
+
+}
+
+.plato > h2 {
+  color: #444;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 10px;
+}
+
+.plato > p {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* Estilos para los íconos - considera agregar tu propia fuente de íconos */
+.icons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: none;
+}
+
+.plato:hover .icons {
+  display: block;
+}
+.icons i {
+  margin: 1px;
+}
+
+.plato:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.carta:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.plato:hover .icons {
+  display: block;
+  cursor: pointer;
+}
+/* Estilo base para el menú */
+/* .nav-menu {
+  background-color: #f0f0f0; 
+  text-align: center; 
+  padding: 10px 0; 
+} */
+
+/* Estilo para la lista y los elementos de la lista */
+/* 
+#op-menu-comida {
+  list-style: none;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: static;
+  height: auto;
+  padding: 0;
+  background-color: transparent;
+  transition: none;
+  font-size: 1.4em;
+  width: 100%;
+}
+
+#op-menu-comida li {
+  padding: 0.7em;
+  color: rgb(0, 0, 0);
+  margin: auto;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+#op-menu-comida li:hover {
+  cursor: pointer;
+  background-color: white;
+}
+
+#op-menu-comida > a > li:hover {
+  color: #000;
+} */
+
+
+/* Estilo general para el modal */
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Habilitar desplazamiento si es necesario */
+  background-color: rgba(0, 0, 0, 0.5); /* Color de fondo con opacidad */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo del contenido del modal */
+.modal-content {
+  background-color: #F7F4E8; /* Color de fondo claro */
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px; /* Ancho máximo para dispositivos grandes */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  margin-top: 10em;
+
+}
+
+/* Botón de cierre */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilos del formulario */
+.estiloForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.estiloForm h2 {
+  color: #0B0B0D; /* Color de texto oscuro */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.estiloForm label {
+  margin-bottom: 10px;
+  color: #6BB39B; /* Color temático para etiquetas */
+}
+
+.estiloForm input[type="text"],
+.estiloForm input[type="number"],
+.estiloForm select,
+.estiloForm textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #6BB39B; /* Borde con color temático */
+  box-sizing: border-box; /* Para que el padding no aumente el ancho */
+}
+
+.estiloForm button {
+  background-color: #6BB39B; /* Fondo del botón con color temático */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.estiloForm button:hover {
+  background-color: #85E6C0; /* Color más claro al pasar el ratón */
+}
+
+/* Menu */
+.nav-menu {
+  background-color: #F7F4E8; /* Color de fondo claro de la paleta */
+}
+
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  padding: 1rem;
+}
+.hamburguesa {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px; /* Ajusta el ancho según prefieras */
+  height: 25px; /* Ajusta la altura según prefieras */
+}
+
+.barra {
+  height: 3px;
+  width: 100%;
+  background-color: #000; /* Color de las barras */
+}
+
+
+
+.hamburguesa {
+  position: relative;
+}
+
+.barra {
+  position: absolute;
+  left: 0;
+  transition: transform 0.3s ease-in-out;
+}
+
+.barra:nth-child(1) {
+  top: 0;
+}
+
+.barra:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.barra:nth-child(3) {
+  top: 100%;
+  transform: translateY(-100%);
+}
+
+.menu-toggle.active .barra:nth-child(1) {
+  transform: rotate(45deg) translate(12px, 5px);
+}
+
+.menu-toggle.active .barra:nth-child(3) {
+  transform: rotate(-45deg) translate(12px, -5px);
+}
+
+.menu-toggle.active .barra:nth-child(2) {
+  opacity: 0;
+}
+
+#op-menu-comida {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  font-size: 1.4em;
+
+  transition: opacity 0.3s ease-in-out;
+}
+
+#op-menu-comida li {
+  padding: 0.7em;
+  color: #0B0B0D; /* Color oscuro de la paleta */
+}
+
+#op-menu-comida a {
+  color: #0B0B0D; /* Color oscuro de la paleta */
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+#op-menu-comida li:hover a {
+  color: #6BB39B; /* Color temático para el hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  #op-menu-comida {
+    flex-direction: column;
+    width: 100%;
+    opacity: 0; /* Inicialmente oculto en móviles */
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+  }
+
+  #op-menu-comida.active {
+    opacity: 1;
+    max-height: 100vh; /* Altura máxima para dispositivos móviles */
+}
+
+.opcion-menu {
+    text-align: center;
+}
+}
