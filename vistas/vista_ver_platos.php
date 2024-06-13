@@ -22,6 +22,8 @@ if (isset($obj->mensaje_error)) {
     die("<p>" . $obj->mensaje_error . "</p></body></html>");
 }
 
+
+
 if (isset($_POST["btnCrearPlato"])) {
     // Asumimos que todos los campos son obligatorios, por lo que verificamos que todos estén establecidos
     $error_form = empty($_POST["plate_name"]) || empty($_POST["descripcion"]) || empty($_POST["precio"]) || empty($_POST["half_price"]) || empty($_POST["food_type"]) || empty($_POST["alergenos"]);
@@ -68,14 +70,39 @@ if (isset($_POST["btnCrearPlato"])) {
         </div>
     </div>
     <ul id="op-menu-comida" class="menu">
-        <li class="opcion-menu"><a href="#Entrantes">Entrantes</a></li>
-        <li class="opcion-menu"><a href="#Ensaladas">Ensaladas</a></li>
-        <li class="opcion-menu"><a href="#Pescados">Pescados</a></li>
-        <li class="opcion-menu"><a href="#Woks">Woks y Pastas</a></li>
-        <li class="opcion-menu"><a href="#Carnes">Carnes</a></li>
-        <li class="opcion-menu"><a href="#Arroces">Arroces</a></li>
-        <li class="opcion-menu"><a href="#Ninos">Niños</a></li>
-        <li class="opcion-menu"><a href="#Postres">Postres</a></li>
+     
+        <li id="Entrante" class="opcion-menu">
+            <a class="opcion-menu" href="#Ensaladas">Entrantes</a>
+        </li>
+        <li id="Ensalada" class="opcion-menu">
+            <a class="opcion-menu" href="#Pescados">Ensaladas</a>
+
+        </li>
+
+        <li id="Pescado" class="opcion-menu">
+            <a class="opcion-menu" href="#Ensaladas">Pescados</a>
+
+        </li>
+        <li id="Wok" class="opcion-menu">
+            <a class="opcion-menu" href="#Woks">Woks y Pastas</a>
+
+        </li>
+        <li id="Carne" class="opcion-menu">
+            <a class="opcion-menu" href="#Carnes">Carnes</a>
+
+        </li>
+        <li id="Arroce" class="opcion-menu">
+            <a class="opcion-menu" href="#Arroces">Arroces</a>
+
+        </li>
+        <li id="Nino" class="opcion-menu">
+            <a class="opcion-menu" href="#Ninos">Niños</a>
+
+        </li>
+        <li id="Postre" class="opcion-menu">
+            <a class="opcion-menu" href="#Postres">Postres</a>
+
+        </li>
     </ul>
 </nav>
 
@@ -199,12 +226,13 @@ echo "<span class='crear'>Añadir Plato <i class='fa-solid fa-plus' title='Añad
         <button class="close">Cancelar</button>
     </div>
 </div>
+    <?php
 
-<?php
+
 echo "<div class='cartas-platos'>";
 
 foreach ($obj->pagina as $tupla) {
-    echo "<div class='plato {$tupla->food_type}'>";
+    echo "<div id='{$tupla->food_type}'class='plato {$tupla->food_type}'>";
     echo "<h2>Nombre Plato: {$tupla->plate_name}</h2>";
     echo "<p>Descripción: <strong>{$tupla->descrip}</strong></p>";
     echo "<p>Precio: {$tupla->price}</p>";
@@ -218,6 +246,5 @@ foreach ($obj->pagina as $tupla) {
     echo "</div>";
 }
 echo "</div>";
-
-
-?>
+    ?>
+    <button id="scrollTopBtn" title="Ir Arriba">↑</button>

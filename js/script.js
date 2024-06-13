@@ -37,6 +37,7 @@ $(window).click(function(e) {
         $('.modal').hide();
     }
 });
+
 //   var modal = $("#modalAñadirPlato");
 //   var btn = $(".crear");
 //   var span = $(".close");
@@ -55,4 +56,46 @@ $(window).click(function(e) {
 //           modal.fadeOut(); // o modal.hide();
 //       }
 //   });
+loadDishes();
+
+// Manejar el evento de clic en el menú
+$('.opcion-menu a').on('click', function(event) {
+    event.preventDefault();
+    var type = $(this).data('type');
+    filterDishes(type);
 });
+});
+
+// Función para cargar todos los platos
+function loadDishes() {
+  console.log("----");
+  $.ajax({
+      url: '/servicios_rest/dishes',
+      method: 'GET',
+      success: function(data) {
+          displayDishes(data);
+      },
+      error: function(err) {
+          console.log('Error:', err);
+      }
+  });
+}
+
+// Función para mostrar platos en el DOM
+function displayDishes(dishes) {
+  let output = '';
+  $.each(dishes, function(index, dish) {
+      output += `<div class="dish" data-type="${dish.food_type}">
+                     <h3>${dish.plate_name}</h3>
+                     <p>${dish.descrip}</p>
+                     <p>Precio: ${dish.price}</p>
+                 </div>`;
+  });
+  $('#menu').html(output);
+}
+
+// Función para filtrar platos por tipo
+function filterDishes(type) {
+  $('.dish').hide();
+  $(`.dish[data-type="${type}"]`).show();
+}

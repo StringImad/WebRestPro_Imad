@@ -59,6 +59,13 @@ $app->get('/pagina/{id}', function ($request) {
 
     echo json_encode(obtener_pagina($request->getAttribute('id')));
 });
+// Endpoint para obtener platos filtrados por ID de restaurante y tipo de comida
+$app->get('/paginas/{id}/{type_food}', function ($request) {
+    $id_restaurant = $request->getAttribute('id');
+    $type_food = $request->getAttribute('type_food');
+    echo json_encode(obtener_pagina_tipo_comida($id_restaurant, $type_food));
+});
+
 $app->post('/insertarPlato/{id_restaurant}', function ($request) {
 
     session_id($request->getParam('api_session'));

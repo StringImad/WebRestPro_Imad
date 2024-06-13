@@ -201,35 +201,86 @@ function obtener_user_name($id)
 
     return $respuesta;
 }
-function obtener_pagina($id)
+ function obtener_pagina($id)
+ {
+     try {
+         $conexion = new PDO("mysql:host=" . SERVIDOR_BD . ";dbname=" . NOMBRE_BD, USUARIO_BD, CLAVE_BD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+         try {
+             $consulta = "select * from page_web_content where id_restaurant = ?";
+             $sentencia = $conexion->prepare($consulta);
+             $sentencia->execute([$id]);
+
+                 $respuesta["pagina"] = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+
+             $sentencia = null;
+             $conexion = null;
+         } catch (PDOException $e) {
+             $respuesta["mensaje_error"] = "Imposible realizar la consulta. Error:" . $e->getMessage();
+         }
+     } catch (PDOException $e) {
+         $respuesta["mensaje_error"] = "Imposible conectar a la BD. Error:" . $e->getMessage();
+     }
+
+     return $respuesta;
+ }
+
+function obtener_pagina_tipo_comida($id,$type_food)
 {
     try {
         $conexion = new PDO("mysql:host=" . SERVIDOR_BD . ";dbname=" . NOMBRE_BD, USUARIO_BD, CLAVE_BD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
         try {
-            $consulta = "select * from page_web_content where id_restaurant = ?";
+            $consulta = "select * from page_web_content where id_restaurant = ? and type_food = ?";
             $sentencia = $conexion->prepare($consulta);
-            $sentencia->execute([$id]);
+            $sentencia->execute([$id,$type_food]);
 
-            // if ($sentencia->rowCount() > 0)
+//             // if ($sentencia->rowCount() > 0)
                 $respuesta["pagina"] = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-            // else
-                // $respuesta["mensaje"] = "La pagina no se encuentra registrada en la BD";
+//             // else
+//                 // $respuesta["mensaje"] = "La pagina no se encuentra registrada en la BD";
 
 
-            $sentencia = null;
-            $conexion = null;
-        } catch (PDOException $e) {
-            $respuesta["mensaje_error"] = "Imposible realizar la consulta. Error:" . $e->getMessage();
-        }
-    } catch (PDOException $e) {
-        $respuesta["mensaje_error"] = "Imposible conectar a la BD. Error:" . $e->getMessage();
-    }
+             $sentencia = null;
+             $conexion = null;
+         } catch (PDOException $e) {
+             $respuesta["mensaje_error"] = "Imposible realizar la consulta. Error:" . $e->getMessage();
+         }
+     } catch (PDOException $e) {
+         $respuesta["mensaje_error"] = "Imposible conectar a la BD. Error:" . $e->getMessage();
+     }
 
-    return $respuesta;
-}
+     return $respuesta;
+ }
 
 
 
+// function obtener_pagina($id) {
+//     global $conn;
+//     $sql = "SELECT * FROM page_web_content WHERE id_restaurant = ?";
+//     $stmt = $conn->prepare($sql);
+//     $stmt->bind_param("i", $id);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+//     $dishes = array();
+//     while ($row = $result->fetch_assoc()) {
+//         $dishes[] = $row;
+//     }
+//     return $dishes;
+// }
+
+// function obtener_pagina_tipo_comida($id_restaurant, $type_food) {
+//     global $conn;
+//     $sql = "SELECT * FROM page_web_content WHERE id_restaurant = ? AND food_type = ?";
+//     $stmt = $conn->prepare($sql);
+//     $stmt->bind_param("is", $id_restaurant, $type_food);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+//     $dishes = array();
+//     while ($row = $result->fetch_assoc()) {
+//         $dishes[] = $row;
+//     }
+//     return $dishes;
+// }
 function insertar_plato($datos)
 {
     try {

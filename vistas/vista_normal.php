@@ -113,12 +113,44 @@
                 // Aquí lógica para borrar el plato, como una solicitud AJAX
                 $('.modal').hide();
             });
-        });
+
+            $("#op-menu-comida>.opcion-menu").click(function() {
+                var id = $(this).attr("id");
+
+                console.log("Mostrando id: "+id+"s")
+
+            });
+
+      
+});
+window.onscroll = function() {
+    scrollFunction();
+};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("scrollTopBtn").style.display = "block";
+    } else {
+        document.getElementById("scrollTopBtn").style.display = "none";
+    }
+}
+
+// Función para deslizar hacia arriba
+document.getElementById("scrollTopBtn").onclick = function() {
+    scrollToTop();
+};
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Deslizamiento suave
+    });
+}
     </script>
 </head>
 
 <body>
-<!-- <script src="js/script.js"></script> -->
+    <!-- <script src="js/script.js"></script> -->
 
     <header>
         <h1>WebRestPro</h1>

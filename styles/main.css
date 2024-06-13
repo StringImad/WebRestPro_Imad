@@ -579,6 +579,39 @@ a {
   color: #6BB39B; /* Color temático para el hover */
 }
 
+/* Menu fijo */
+.nav-menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+body {
+  padding-top: 60px; /* Ajusta este valor según la altura de tu menú */
+}
+
+#scrollTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 50%;
+  display: none; /* Inicialmente oculto */
+  z-index: 1000;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s;
+}
+
+#scrollTopBtn:hover {
+  background-color: #0056b3;
+}
 /* Responsive styles */
 @media (max-width: 768px) {
   .menu-toggle {
