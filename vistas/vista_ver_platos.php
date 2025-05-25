@@ -21,10 +21,15 @@ if (isset($obj->mensaje_error)) {
     session_destroy();
     die("<p>" . $obj->mensaje_error . "</p></body></html>");
 }
+echo "<pre>";
+var_dump($obj);
+echo "</pre>";
+$id_restaurante = $obj->id_restaurant;
 
-
+echo "<p>------------------------------<p>";
 
 if (isset($_POST["btnCrearPlato"])) {
+    echo "<p>---------------1---------------<p>";
     // Asumimos que todos los campos son obligatorios, por lo que verificamos que todos estén establecidos
     $error_form = empty($_POST["plate_name"]) || empty($_POST["descripcion"]) || empty($_POST["precio"]) || empty($_POST["half_price"]) || empty($_POST["food_type"]) || empty($_POST["alergenos"]);
 
@@ -39,7 +44,12 @@ if (isset($_POST["btnCrearPlato"])) {
             "allergen" => $_POST["alergenos"],
             "api_session" => $_SESSION["api_session"] // Asumiendo que esta es la sesión de la API
         );
+    
         $respuesta = consumir_servicios_REST($url, "POST", $datos_env);
+              // Mensajes de depuración
+              echo "<pre>";
+              var_dump($datos_env);
+              echo "</pre>";
         $obj = json_decode($respuesta);
         if (!$obj) {
             if (isset($_SESSION["user_name"]))
@@ -246,5 +256,7 @@ foreach ($obj->pagina as $tupla) {
     echo "</div>";
 }
 echo "</div>";
+echo "<p class='mensaje'>" . $_SESSION["comentario"] . "</p>";
+
     ?>
     <button id="scrollTopBtn" title="Ir Arriba">↑</button>

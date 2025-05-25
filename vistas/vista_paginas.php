@@ -21,7 +21,11 @@ else
         session_destroy();
         die("<p>".$obj->mensaje_error."</p></body></html>");
     }
+    echo "<pre>";
+    print_r($datos_usu_log);
+    echo "</pre>";
     echo "<div class='cartas-restaurantes'>";
+   
 
     foreach ($obj->paginas_usuario as $tupla) {
         echo "<div class='carta'>";

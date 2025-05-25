@@ -37,6 +37,7 @@ if(isset($obj->mensaje))
 
 
 $datos_usu_log=$obj->user_name;
+$datos_usu_log_id=$obj->user_name->idUser;
 
 if(time()-$_SESSION["ultima_accion"]>MINUTOS*60)
 {

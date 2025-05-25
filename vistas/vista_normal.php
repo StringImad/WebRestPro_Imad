@@ -1,5 +1,55 @@
 <?php
+if (isset($_POST["btnVerPagina"]))
+$id_usuario = $_POST["btnVerPagina"];
+elseif (isset($_POST["btnEditarPagina"]))
+$id_usuario = $_POST["btnEditarPagina"];
+if (isset($_POST["btnCrearPlato"])) {
+    echo "<p>---------------1---------------<p>";
+    // Asumimos que todos los campos son obligatorios, por lo que verificamos que todos estén establecidos
+    $error_form = empty($_POST["plate_name"]) || empty($_POST["descripcion"]) || empty($_POST["precio"]) || empty($_POST["half_price"]) || empty($_POST["food_type"]) || empty($_POST["alergenos"]);
+    echo "<pre>";
+        print_r($error_form);
+        echo "</pre>";
+    if (!$error_form) {
+        echo "<p>---------------2---------------<p>";
 
+        $url = DIR_SERV . "/insertarPlato/" . $id_restaurante;
+        $datos_env = array(
+            "plate_name" => $_POST["plate_name"],
+            "descrip" => $_POST["descripcion"],
+            "price" => $_POST["precio"],
+            "half_price" => $_POST["half_price"],
+            "food_type" => $_POST["food_type"],
+            "allergen" => $_POST["alergenos"],
+            "api_session" => $_SESSION["api_session"] // Asumiendo que esta es la sesión de la API
+        );
+        echo "<pre>";
+        print_r($datos_env);
+        echo "</pre>";
+        $respuesta = consumir_servicios_REST($url, "POST", $datos_env);
+              // Mensajes de depuración
+              echo "<pre>";
+              var_dump($datos_env);
+              echo "</pre>";
+        $obj = json_decode($respuesta);
+        if (!$obj) {
+            if (isset($_SESSION["user_name"]))
+                consumir_servicios_REST(DIR_SERV . "/salir", "POST", $_SESSION["api_session"]);
+
+            session_destroy();
+            die("<p>Error consumiendo el servicio: " . $url . "</p></body></html>");
+        }
+        if (isset($obj->mensaje_error)) {
+            if (isset($_SESSION["user_name"]))
+                consumir_servicios_REST(DIR_SERV . "/salir", "POST", $_SESSION["api_session"]);
+            session_destroy();
+            die("<p>" . $obj->mensaje_error . "</p></body></html>");
+        }
+    } else {
+        // Manejo del error cuando hay campos vacíos en el formulario
+        $_SESSION["comentario"] = "Todos los campos son obligatorios.";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

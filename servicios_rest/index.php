@@ -67,9 +67,10 @@ $app->get('/paginas/{id}/{type_food}', function ($request) {
 });
 
 $app->post('/insertarPlato/{id_restaurant}', function ($request) {
-
     session_id($request->getParam('api_session'));
     session_start();
+    var_dump($request);
+
     $datos[] = $request->getParam("plate_name");
     $datos[] = $request->getParam("descrip");
     $datos[] = $request->getParam("allergen");
