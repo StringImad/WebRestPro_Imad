@@ -31,7 +31,6 @@ if (isset($_POST["btnLogin"])) {
                 header("Location:admin/gest_paginas.php");
             else
                 header("Location:principal.php");
-
             exit;
         }
     }

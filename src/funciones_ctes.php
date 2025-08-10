@@ -1,7 +1,11 @@
 <?php
 define("DIR_SERV","http://localhost/proyectos/WebRestPro/servicios_rest");
 define("MINUTOS", 15);
-
+// ====== CONSTANTES Y CONEXIÓN ======
+define("DB_HOST","localhost");
+define("DB_NAME","web_rest_pro");
+define("DB_USER","root");
+define("DB_PASS","");
 function consumir_servicios_REST($url, $metodo, $datos=null)
 {
     $llamada=curl_init();
@@ -31,5 +35,62 @@ function error_page($title,$cabecera,$mensaje)
     </body>
     </html>';
 }
+// Punto base para tu API REST local
+// Úsalo si quieres hacer llamadas desde fuera. Internamente no es necesario.
 
+// Devuelve conexión PDO
+function db() {
+    static $pdo = null;
+    if ($pdo === null) {
+        $pdo = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8mb4", DB_USER, DB_PASS, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ]);
+    }
+    return $pdo;
+}
+
+// ====== SESIÓN Y ROLES ======
+function require_login() {
+    if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+    if (empty($_SESSION["user_name"])) {
+        header("Location: index.php");
+        exit;
+    }
+}
+
+function current_username() {
+    return $_SESSION["user_name"] ?? null;
+}
+
+// ¿El usuario logueado es admin?
+function is_admin() {
+    // Comprobamos en BD por si la sesión no guardó el type
+    $sql = "SELECT type FROM user WHERE user_name = ?";
+    $st = db()->prepare($sql);
+    $st->execute([current_username()]);
+    $row = $st->fetch();
+    return $row && $row["type"] === "admin";
+}
+
+// ====== PERMISOS ======
+// Comprueba si el restaurante pertenece al usuario actual (o si es admin)
+function can_access_restaurant($id_restaurant) {
+    if (is_admin()) return true;
+    $sql = "SELECT r.id 
+            FROM restaurant r 
+            JOIN user u ON u.idUser = r.id_user
+            WHERE r.id = ? AND u.user_name = ?";
+    $st = db()->prepare($sql);
+    $st->execute([$id_restaurant, current_username()]);
+    return (bool)$st->fetch();
+}
+
+// ====== UTIL ======
+function json_output($data, int $code = 200) {
+    http_response_code($code);
+    header("Content-Type: application/json; charset=utf-8");
+    echo json_encode($data);
+    exit;
+}
 ?>
