@@ -12,36 +12,79 @@ require_login();
   <title>Panel – WebRestPro</title>
   <link rel="stylesheet" href="styles/normalize.css">
   <link rel="stylesheet" href="styles/main.css">
-  <style>
-/* Botones (por si acaso) */
-/* Botones (por si acaso) */
-.btn { padding:8px 12px; border:1px solid #d1d5db; background:#fff; color:#111; cursor:pointer; border-radius:8px;}
-.btn.primary { background:#2563eb; color:#fff; border-color:#2563eb;}
-.btn.danger  { background:#ef4444; color:#fff; border-color:#ef4444;}
-
-/* Backdrop + modal con alta especificidad por ID */
+  <style>/* —— Modal limpio y centrado (muy minimal) —— */
 #modalBackdrop{
-  position: fixed !important;
-  inset: 0 !important;
-  background: rgba(0,0,0,.45) !important;
-  display: none !important;         /* se abre vía JS */
-  z-index: 999999 !important;       /* por encima de TODO */
-  align-items: center !important;
-  justify-content: center !important;
+  position: fixed;
+  inset: 0;
+  display: none;                 /* lo abres con JS */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.4);
+  z-index: 9999;
 }
 
 #modalBackdrop .modal{
-  /* background:#fff !important;
-  padding:16px !important;
-  border-radius:12px !important;
-  width:min(680px, 92vw) !important;
-  max-height:90vh !important;
-  overflow:auto !important;
-  box-shadow:0 10px 25px rgba(0,0,0,.25) !important;
-  border:3px solid #2563eb !important;  */
-  /* <- DEBUG: QUÍTALO cuando lo veas */
-  display:block !important;
+  width: min(720px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.25);
+  padding: 18px 20px;
+  color: #111827;
 }
+
+/* layout del formulario dentro del modal */
+#modalBackdrop .modal .row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 14px;
+  margin-top: 6px;
+}
+
+#modalBackdrop .modal label{
+  display: block;
+  font-size: .9rem;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+#modalBackdrop .modal input,
+#modalBackdrop .modal textarea{
+  width: 100%;
+  padding: 10px 12px;
+  font-size: .95rem;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+}
+
+#modalBackdrop .modal textarea{ resize: vertical; }
+
+/* que Descripción ocupe dos columnas */
+#f_desc{ grid-column: 1 / -1; }
+
+/* botones del modal alineados a la derecha */
+#modalBackdrop .modal .actions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* botones */
+.btn{ padding:10px 14px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111; cursor:pointer; }
+.btn:hover{ background:#f8fafc; }
+.btn.primary{ background:#2563eb; border-color:#2563eb; color:#fff; }
+.btn.primary:hover{ filter:brightness(1.05); }
+.btn.danger{ background:#ef4444; border-color:#ef4444; color:#fff; }
+
+/* tabla un poco más agradable (opcional) */
+table{ background:#fff; border-radius:12px; overflow:hidden; }
+th{ background:#f3f4f6; font-weight: 600; }
+tbody tr:nth-child(even){ background:#fafafa; }
 
 
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 16px; }
@@ -126,7 +169,7 @@ if (isset($_GET['salir'])) {
         <input id="f_price" type="text" placeholder="ej. 15">
       </div>
     </div>
-    <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+    <div class="actions" >
       <button id="cancelBtn" class="btn">Cancelar</button>
       <button id="saveBtn" class="btn primary" type="button">Guardar</button>
     </div>
