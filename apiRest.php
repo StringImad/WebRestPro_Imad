@@ -9,6 +9,51 @@ $method = $_SERVER["REQUEST_METHOD"];
 $resource = $_GET["resource"] ?? ""; // "platos" | "restaurantes"
 
 try {
+    if ($resource === "users") {
+    // Solo el admin puede listar/crear usuarios
+    if (!is_admin()) json_output(["error"=>"Sin permiso"], 403);
+
+    if ($method === "GET") {
+        // Lista básica de usuarios
+        $sql = "SELECT idUser, user_name, email, type FROM user ORDER BY type DESC, user_name";
+        $rows = db()->query($sql)->fetchAll();
+        json_output(["data"=>$rows]);
+    }
+
+    if ($method === "POST") {
+        // Crear usuario nuevo
+        $payload = json_decode(file_get_contents("php://input"), true);
+        if (!$payload) json_output(["error"=>"JSON inválido"], 400);
+
+        $user_name = trim($payload["user_name"] ?? "");
+        $email     = trim($payload["email"] ?? "");
+        $passwd    = trim($payload["passwd"] ?? "");
+        $type      = trim($payload["type"] ?? "normal"); // 'admin' | 'normal'
+
+        if ($user_name === "" || $passwd === "") {
+            json_output(["error"=>"Usuario y contraseña son obligatorios"], 422);
+        }
+        if (!in_array($type, ["admin","normal"], true)) {
+            json_output(["error"=>"Tipo de usuario inválido"], 422);
+        }
+
+        // ¿existe ya ese user_name?
+        $st = db()->prepare("SELECT 1 FROM user WHERE user_name=?");
+        $st->execute([$user_name]);
+        if ($st->fetch()) {
+            json_output(["error"=>"El nombre de usuario ya existe"], 409);
+        }
+
+        // Inserta (MVP: contraseña sin hash para no romper login actual)
+        $st = db()->prepare("INSERT INTO user (user_name, email, passwd, type) VALUES (?,?,?,?)");
+        $st->execute([$user_name, $email ?: null, $passwd, $type]);
+
+        json_output(["ok"=>true, "idUser"=>db()->lastInsertId()], 201);
+    }
+
+    json_output(["error"=>"Método no permitido"], 405);
+}
+
     if ($resource === "restaurantes") {
         // GET /apiRest.php?resource=restaurantes
         if ($method !== "GET") json_output(["error"=>"Método no permitido"], 405);

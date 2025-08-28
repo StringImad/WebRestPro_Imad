@@ -16,11 +16,18 @@
     <link rel="stylesheet" href="../styles/normalize.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+  .btn{ padding:8px 12px; border:1px solid #d1d5db; background:#fff; color:#111; border-radius:8px; text-decoration:none; display:inline-block;}
+  .btn:hover{ background:#f8fafc; }
+</style>
 </head>
 
 <body>
 <header>
     <h1>WebRestPro</h1>
+    <p style="margin:12px 0; display:flex; gap:10px; flex-wrap:wrap;">
+  <a class="btn" href="../admin/gest_usuarios.php">👤 Gestionar usuarios</a>
+</p>
     <div class="usuario-logout">
         <span class="nombre-usuario"><i class="fa-solid fa-user"></i> <?php echo $datos_usu_log->user_name; ?></span>
         <form action="gest_paginas.php" method="post">
