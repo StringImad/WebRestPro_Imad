@@ -44,6 +44,8 @@ if(time()-$_SESSION["ultima_accion"]>MINUTOS*60)
     consumir_servicios_REST(DIR_SERV."/salir","POST",$_SESSION["api_session"]);
     session_unset();
     $_SESSION["seguridad"]="Su tiempo de sesión ha expirado";
+    $salto = "<br>";
+
     header("Location:".$salto);
     exit;
 }

@@ -3,6 +3,12 @@ session_name("22_23");
 session_start();
 require_once __DIR__ . "/src/funciones_ctes.php";
 require_login();
+// --- cerrar sesión antes de cualquier HTML ---
+if (isset($_GET['salir'])) {
+    session_destroy();
+    header("Location: index.php");
+    exit;
+}
 ?>
 <!doctype html>
 <html lang="es">

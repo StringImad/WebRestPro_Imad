@@ -6,20 +6,36 @@ define("DB_HOST","localhost");
 define("DB_NAME","web_rest_pro");
 define("DB_USER","root");
 define("DB_PASS","");
-function consumir_servicios_REST($url, $metodo, $datos=null)
-{
-    $llamada=curl_init();
-    curl_setopt($llamada,CURLOPT_URL,$url);
-    curl_setopt($llamada,CURLOPT_RETURNTRANSFER,true);
-    curl_setopt($llamada,CURLOPT_CUSTOMREQUEST,$metodo);
-    if(isset($datos))
-        curl_setopt($llamada,CURLOPT_POSTFIELDS,http_build_query($datos));
-    
-    $respuesta=curl_exec($llamada);
-    curl_close($llamada);
-    return $respuesta; 
-}
+function consumir_servicios_REST($url, $metodo, $datos=null) {
+    $llamada = curl_init();
 
+    if ($metodo=="GET" && $datos!==null) {
+        // Si es un string (token), añade como ?api_session=XXX
+        if (is_string($datos)) {
+            $sep = (strpos($url,'?')===false) ? '?' : '&';
+            $url .= $sep."api_session=".urlencode($datos);
+            $datos = null;
+        } elseif (is_array($datos)) {
+            $url .= "?".http_build_query($datos);
+            $datos = null;
+        }
+    }
+
+    curl_setopt($llamada, CURLOPT_URL, $url);
+    curl_setopt($llamada, CURLOPT_RETURNTRANSFER, true);
+
+    if ($metodo=="POST") {
+        curl_setopt($llamada, CURLOPT_POST, true);
+        if ($datos!==null) curl_setopt($llamada, CURLOPT_POSTFIELDS, http_build_query($datos));
+    } else if ($metodo=="PUT" || $metodo=="DELETE") {
+        curl_setopt($llamada, CURLOPT_CUSTOMREQUEST, $metodo);
+        if ($datos!==null) curl_setopt($llamada, CURLOPT_POSTFIELDS, http_build_query($datos));
+    }
+
+    $respuesta = curl_exec($llamada);
+    curl_close($llamada);
+    return $respuesta;
+}
 function error_page($title,$cabecera,$mensaje)
 {
     return '<!DOCTYPE html>

@@ -43,6 +43,8 @@ $app->post('/insertarUsuario', function ($request) {
 
 
     $datos[] = $request->getParam('user_name');
+    $datos[] = $request->getParam('name');
+
     $datos[] = $request->getParam('passwd');
     $datos[] = $request->getParam('email');
 
@@ -98,6 +100,40 @@ $app->get('/usuarios', function ($request) {
 
 
 
+$app->put('/usuarios/{id}', function ($request) {
+    session_id($request->getParam('api_session'));
+    session_start();
+
+    if (isset($_SESSION["type"]) && $_SESSION["type"] == "admin") {
+        $id = $request->getAttribute('id');
+
+        $datos[] = $id;
+        $datos[] = $request->getParam("user_name");
+        $datos[] = $request->getParam("name");
+
+        $datos[] = $request->getParam("email");
+        $datos[] = $request->getParam("passwd");
+        $datos[] = $request->getParam("type");
+
+        echo json_encode(actualizar_usuario($datos));
+    } else {
+        session_destroy();
+        echo json_encode(array('no_login' => 'No logueado'));
+    }
+});
+
+$app->delete('/usuarios/{id}', function ($request) {
+    session_id($request->getParam('api_session'));
+    session_start();
+
+    if (isset($_SESSION["type"]) && $_SESSION["type"] == "admin") {
+        $id = $request->getAttribute('id');
+        echo json_encode(eliminar_usuario($id));
+    } else {
+        session_destroy();
+        echo json_encode(array('no_login' => 'No logueado'));
+    }
+});
 
 
 
@@ -120,7 +156,54 @@ $app->get('/user_name/{id}', function ($request) {
 
 
 
+// GET /usuarios/{id}/restaurantes
+$app->get('/usuarios/{id}/restaurantes', function ($request, $response, $args) {
+    // la API recibe el token por query (?api_session=...)
+    session_id($request->getParam('api_session'));
+    session_start();
 
+    if (isset($_SESSION["type"]) && $_SESSION["type"] === "admin") {
+        $idUser = $args['id'];
+        // usa tu función existente
+        $res = obtener_paginas_usuario($idUser);
+        return $response->withHeader('Content-Type', 'application/json')
+            ->write(json_encode($res));
+    } else {
+        session_destroy();
+        return $response->withHeader('Content-Type', 'application/json')
+            ->write(json_encode(['no_login' => 'No logueado']));
+    }
+});
+
+// GET /restaurantes/{id}/detalle
+$app->get('/restaurantes/{id}/detalle', function ($request, $response, $args) {
+    session_id($request->getParam('api_session'));
+    session_start();
+
+    if (!isset($_SESSION["type"]) || $_SESSION["type"] !== "admin") {
+        session_destroy();
+        return $response->withHeader('Content-Type', 'application/json')
+            ->write(json_encode(['no_login' => 'No logueado']));
+    }
+
+    $idRest = $args['id'];
+
+    // Datos del restaurante
+    $rest = obtener_restaurante($idRest);
+
+    // Platos (ya tienes la función obtener_pagina($id_restaurant))
+    $platos = obtener_pagina($idRest);
+
+    $out = ["ok" => true];
+    if (isset($rest["mensaje_error"])) $out["mensaje_error"] = $rest["mensaje_error"];
+    if (isset($platos["mensaje_error"])) $out["mensaje_error"] = $platos["mensaje_error"];
+
+    if (isset($rest["restaurante"])) $out["restaurante"] = $rest["restaurante"];
+    if (isset($platos["pagina"]))     $out["platos"]      = $platos["pagina"];
+
+    return $response->withHeader('Content-Type', 'application/json')
+        ->write(json_encode($out));
+});
 
 
 

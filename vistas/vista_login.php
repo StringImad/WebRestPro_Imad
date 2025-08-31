@@ -28,7 +28,7 @@ if (isset($_POST["btnLogin"])) {
             $_SESSION["api_session"]["api_session"] = $obj->api_session;
 
             if ($obj->user_name->type == "admin")
-                header("Location:admin/gest_paginas.php");
+    header("Location:admin/gest_usuarios.php");
             else
                 header("Location:principal.php");
             exit;
@@ -50,7 +50,8 @@ if (isset($_POST["btnLogin"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;500;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous" />
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/normalize.css" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -72,7 +73,8 @@ if (isset($_POST["btnLogin"])) {
                     <div class="input-group">
 
                         <label class="input-fill">
-                            <input type="text" name="user_name" id="user_name" value="<?php if (isset($_POST["user_name"])) echo $_POST["user_name"]; ?>" />
+                            <input type="text" name="user_name" id="user_name"
+                                value="<?php if (isset($_POST["user_name"])) echo $_POST["user_name"]; ?>" />
                             <span class="input-label">Usuario</span>
                             <i class="fas fa-envelope"></i>
                         </label>
@@ -97,7 +99,8 @@ if (isset($_POST["btnLogin"])) {
                         ?>
                     </div>
 
-                    <p><button class="btn-logins" name="btnLogin">Entrar</button> <button class="btn-logins" name="btnRegistro">Registro</button></p>
+                    <p><button class="btn-logins" name="btnLogin">Entrar</button> <button class="btn-logins"
+                            name="btnRegistro">Registro</button></p>
                 </form>
                 <?php
                 if (isset($_SESSION["seguridad"])) {
